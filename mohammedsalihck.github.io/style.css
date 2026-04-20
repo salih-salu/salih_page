@@ -104,7 +104,7 @@ body {
 
 .profile-img:hover {
     /* 1. Scale up significantly */
-    transform: scale(2.15) rotate(3deg); 
+    transform: scale(2.15) rotate(12deg); 
     
     /* 2. Change border color with a transition */
     border-color: var(--secondary);
