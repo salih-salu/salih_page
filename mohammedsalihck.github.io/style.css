@@ -54,13 +54,36 @@ body {
 .profile-header {
     display: flex;
     align-items: center;
+    justify-content: space-between; /* Pushes text to left, image to right */
     gap: 30px;
     background: linear-gradient(to bottom right, rgba(99, 102, 241, 0.1), rgba(255, 255, 255, 0.03));
+    overflow: visible; /* Ensures the image hover scale doesn't get cut off */
+}
+
+.profile-info {
+    flex: 1; /* Allows text to take up remaining space */
 }
 
 .profile-img-container {
     position: relative;
 }
+
+/* .profile-img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 3px solid var(--primary);
+    padding: 5px;
+    object-fit: cover;
+    
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+    transition: transform 0.5s ease;
+}
+
+.profile-img:hover {
+    transform: rotate(5deg) scale(1.1); 
+    border-color: var(--secondary);
+} */
 
 .profile-img {
     width: 120px;
@@ -69,15 +92,46 @@ body {
     border: 3px solid var(--primary);
     padding: 5px;
     object-fit: cover;
-    /* Add this glow effect */
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
-    transition: transform 0.5s ease;
+    background: rgba(255, 255, 255, 0.05); /* Slight backing for the transparent padding */
+    
+    /* Initial state for glow and position */
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); /* Bouncy, premium feel */
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
 }
 
 .profile-img:hover {
-    transform: rotate(5deg) scale(1.1); /* Fun interaction when hovering */
+    /* 1. Scale up significantly */
+    transform: scale(2.15) rotate(3deg); 
+    
+    /* 2. Change border color with a transition */
     border-color: var(--secondary);
+    
+    /* 3. Create a massive "Aura" glow effect */
+    box-shadow: 
+        0 0 30px rgba(99, 102, 241, 0.6), 
+        0 0 60px rgba(168, 85, 247, 0.4);
+        
+    /* 4. Increase brightness on hover */
+    filter: brightness(1.1);
 }
+
+/* Optional: Add a subtle pulse animation when NOT hovering */
+@keyframes pulse-border {
+    0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(99, 102, 241, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
+}
+
+/* Apply pulse if you want it to draw attention automatically */
+/* .profile-img { animation: pulse-border 2s infinite; } */
+
+
+
+
+
 
 .badge {
     background: linear-gradient(90deg, var(--primary), var(--secondary));
@@ -229,7 +283,7 @@ h2 {
 /* Responsive */
 @media (max-width: 600px) {
     .profile-header {
-        flex-direction: column;
+        flex-direction: column-reverse; /* Put image on top for mobile */
         text-align: center;
     }
     h1 { font-size: 2rem; }
