@@ -289,3 +289,87 @@ h2 {
     h1 { font-size: 2rem; }
     .btn-group { flex-direction: column; }
 }
+
+
+
+.gallery-section {
+    overflow: hidden; /* Clips the images so they stay inside the card */
+    padding: 30px /* Remove side padding to let images touch edges if desired */
+}
+
+.scroll-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 20px 0;
+}
+
+.scroll-track {
+    display: flex;
+    /* (Width 230px + Gap 20px) * 14 images total = 3500px */
+    width: calc(250px * 14); 
+    gap: 20px;
+    animation: scrollInfinite 30s linear infinite; /* Slightly slower for a professional feel */
+}
+
+/* Pause animation on hover so the user can look at a photo */
+.scroll-track:hover {
+    animation-play-state: paused;
+}
+
+
+.scroll-track img {
+    width: 230px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    
+    /* THEMED SHADING: Less opacity and desaturated */
+    opacity: 0.5; 
+    filter: grayscale(100%) brightness(0.7);
+    
+    /* Smooth transition for both filter and opacity */
+    transition: 
+        opacity 0.5s ease, 
+        filter 0.5s ease, 
+        transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* REVEAL ON HOVER: Full color, full brightness, full opacity */
+.scroll-track img:hover {
+    opacity: 1;
+    filter: grayscale(0%) brightness(1.1);
+    transform: scale(1.15);
+    border-color: var(--primary);
+    box-shadow: 0 10px 40px rgba(99, 102, 241, 0.4);
+    z-index: 10;
+}
+
+
+.scroll-container::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    /* Gradient fade on edges so images disappear into the darkness */
+    background: linear-gradient(90deg, 
+        var(--dark) 0%, 
+        transparent 15%, 
+        transparent 85%, 
+        var(--dark) 100%);
+    pointer-events: none; /* Allows you to still hover the images underneath */
+    z-index: 2;
+}
+
+/* The Animation */
+@keyframes scrollInfinite {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        /* Move by exactly half the total track (7 images) */
+        transform: translateX(calc(-250px * 7)); 
+    }
+}
